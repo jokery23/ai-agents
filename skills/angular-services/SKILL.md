@@ -66,6 +66,10 @@ src/app/api/<resource-name>/
   └── index.ts                          // Required: Exports to the outside MUST ONLY be via this index file
 ```
 
+**Example**:
+Reference the following file for a complete API service implementation:
+`./examples/api-resource.service.ts`
+
 ---
 
 ### 2. Component Logic Service (Local Component Service)
@@ -85,9 +89,9 @@ src/app/api/<resource-name>/
 - **Separation of Concerns**: Strictly forbidden to import `HttpClient` or perform direct HTTP calls.
 - **Logic Only**: Focus on data transformation, state transitions, and high-level orchestration. UI-specific logic (like focus management) should remain in the component.
 
-**Example**:
-Reference the following file for a complete implementation following this pattern:
-`./examples/feature-logic.service.md`
+**Examples**:
+- [Logic Service Implementation](./examples/feature-logic.service.ts)
+- [Component + Logic Integration](./examples/component-logic-integration.ts)
 
 ---
 
@@ -102,6 +106,10 @@ Reference the following file for a complete implementation following this patter
 - **Highly Reusable**: Designed to be injected and used anywhere in the application.
 
 **Examples**: `ThemeService`, `NotificationService`, `LocalStorageService`, `LoggerService`.
+
+**Example**:
+Reference the following file for a theme management service using Signals:
+`./examples/theme.service.ts`
 
 **Structure**:
 

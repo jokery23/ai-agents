@@ -1,4 +1,3 @@
-```typescript
 import {
   createHttpFactory,
   HttpMethod,
@@ -23,4 +22,3 @@ describe("DataService API", () => {
     });
   });
 });
-```

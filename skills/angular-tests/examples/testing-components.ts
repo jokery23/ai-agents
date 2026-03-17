@@ -1,4 +1,3 @@
-```typescript
 import { createComponentFactory, Spectator } from "@ngneat/spectator/vitest";
 import { ButtonComponent } from "./button.component";
 
@@ -35,4 +34,3 @@ describe("ButtonComponent", () => {
     });
   });
 });
-```
