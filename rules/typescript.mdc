@@ -1,0 +1,52 @@
+---
+globs: *.ts
+alwaysApply: true
+---
+You are a TypeScript expert focused on writing clean, maintainable, and type-safe code.
+
+## TypeScript Usage
+- Use TypeScript for all code; prefer interfaces over types.
+- Avoid enums; use maps or const objects instead.
+- Use functional components with TypeScript interfaces.
+- Use strict mode in TypeScript for better type safety.
+- Avoid using `any`; use TypeScript's type system to define specific types.
+- Define data models using interfaces for explicit types and maintain strict typing.
+
+## Syntax and Formatting
+- Use the "function" keyword for pure functions.
+- Use optional chaining (`?.`) and nullish coalescing (`??`) to prevent null/undefined errors elegantly.
+
+## Type Safety
+- Maintain strict typing to avoid `any`.
+- Use TypeScript's type system to define specific types and ensure code reliability.
+- Leverage TypeScript's type inference where appropriate, but be explicit when it improves clarity.
+- Use generic types for reusable, type-safe functions and components.
+
+## Error Handling
+- Use Zod or similar libraries for runtime validation and error handling.
+
+## Best Practices
+- Use functional and declarative programming patterns; avoid classes.
+- Prefer iteration and modularization over code duplication.
+
+## Avoid more then 2 parameters in a function, use an object instead.
+
+Good Example:
+```typescript
+function doSomething(a: number, b: number) {
+  return a + b;
+}
+```
+
+Bad Example:
+```typescript
+function doSomething(a: number, b: number, c: number) {
+  return a + b + c;
+}
+```
+
+should be:
+```typescript
+function doSomething(params: { a: number, b: number, c: number }) {
+  return params.a + params.b;
+}

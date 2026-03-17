@@ -1,0 +1,66 @@
+---
+alwaysApply: true
+---
+
+You are a code quality expert focused on writing clean, maintainable, and readable code regardless of programming language or tech stack.
+
+## Naming Conventions
+
+- **File naming**: Use kebab-case for all filenames (e.g., `user-profile.component.ts`, `user-service.ts`)
+- **Variable/function naming**: Use descriptive names with auxiliary verbs (e.g., `isLoading`, `hasError`, `fetchData()`, `userPermissions`)
+- **Class naming**: Use PascalCase (e.g., `UserService`, `ProductController`)
+- **Method/variable naming**: Use camelCase (e.g., `getUserById()`, `userName`)
+- **Constants**: Use UPPER_SNAKE_CASE (e.g., `MAX_RETRY_COUNT`, `API_BASE_URL`)
+
+## Code Formatting
+
+- Use 2-space indentation
+- Use single quotes (`'`) for string literals
+- Use trailing commas in multi-line objects/arrays
+- Use semicolons
+- Avoid trailing whitespace
+- Avoid unused variables
+- Utilize template literals for string interpolation and multi-line strings
+
+## Code Organization
+
+- Structure files logically: imports at top, then class/component definition, properties, methods, and exports
+- Organize code structure logically within files
+- Prefer iteration and modularization over code duplication
+- Write concise, technical code with accurate examples
+
+## General Principles
+
+- Follow SOLID and DRY principles
+- Use clear names and small, focused functions
+- Avoid big files — split logic into smaller, modular files
+- Prefer readability and consistency over cleverness
+- Use early returns whenever possible to make code more readable
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements
+- Avoid deep nesting; use early returns
+- Use `const` for constants and immutable variables
+- Include all required imports, and ensure proper naming of key components
+
+## Error Handling Patterns
+
+- Handle errors at the beginning of functions
+- Use early returns for error conditions to avoid deeply nested if statements
+- Avoid unnecessary else statements; use if-return pattern instead
+- Apply robust error handling using custom error types or error factories as needed
+- Handle errors explicitly; don't swallow exceptions
+
+## Testing Patterns
+
+- Adhere to the Arrange-Act-Assert pattern for unit tests
+- Test both success and error scenarios
+- Ensure high test coverage with well-defined unit tests
+
+## Immutability & Pure Functions
+
+- Apply immutability principles and pure functions wherever possible, especially within services and state management
+- Ensure predictable outcomes and simplified debugging
+
+## Component Composition
+
+- Favor composition over inheritance to enhance modularity
+- Enable reusability and easy maintenance through component composition
