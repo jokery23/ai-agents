@@ -15,7 +15,7 @@ This document covers the creation and maintenance of **ALL types of Angular comp
 - Must NOT directly access `HttpClient` or API services (delegate to dedicated services).
 - Prefer `inject()` function over constructor injection for cleaner code
 
-## Smart vs Presentational Components
+## Smart vs Presentational(Dumb) Components
 
 - **Smart (container)** components: inject services with business logic
 - **Presentational** components: receive data via inputs, emit events via outputs — no direct service injection, used to display data and handle user interactions, useful for breaking down complex UI templates into smaller, reusable components
@@ -29,7 +29,7 @@ component-name/
   ├── pipes/                            // (optional) Local pipes
   ├── directives/                       // (optional) Local directives
   ├── component-name.component.ts       // Minimum logic (delegate to service)
-  ├── component-name.component.html     // Keep template minimal, use local components to break down complex UI
+  ├── component-name.component.html     // Keep template minimal, use local dumb sub-components to break down complex UI
   ├── component-name.component.scss
   ├── component-name.component.spec.ts
   ├── component-name.service.ts         // Local logic service, must be provided locally
@@ -53,7 +53,10 @@ Example: orders feature can have order list, order detail, order creation, etc. 
 
 ## Sub-Components
 
-Sub-components are small UI blocks used only inside one feature.
+Sub-components are blocks used only inside one feature or component to avoid large templates and/or logic duplication and keep components focused on single responsibility.
+
+- Can be smart(with its own logic and state) or dumb(UI only, inputs/outputs only)
+- Sub-components are located in the `components/` folder inside the parent
 
 ## Shared Components
 
