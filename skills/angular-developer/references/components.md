@@ -51,6 +51,10 @@ Example: orders feature can have order list, order detail, order creation, etc. 
 - All external imports MUST use absolute paths (e.g. `@shared/components/button`, `@api/orders-api`)
 - Files within a feature MUST remain internal to that feature. Only main feature component should be exported via `index.ts`
 
+## Sub-Components
+
+Sub-components are small UI blocks used only inside one feature.
+
 ## Shared Components
 
 All general, application-wide reusable components reside in `src/app/shared/`.
@@ -62,33 +66,22 @@ All general, application-wide reusable components reside in `src/app/shared/`.
 Use this decision tree to determine which component type to use when creating a new component:
 
 ```
-Is the component tied to a specific route?
+Is it a self-contained, independent business domain (e.g., orders, auth)?
 │
-├── YES → Page Component
-│         Location: src/app/pages/<page-name>/
+├── YES → Feature Component
+│         Location: src/app/features/<feature-name>/
 │
-└── NO  → Is it a self-contained business domain (e.g., orders, auth)?
+└── NO  → Is it a small UI block used only inside one feature?
           │
-          ├── YES → Feature Component
-          │         Location: src/app/features/<module-name>/<feature-name>/
+          ├── YES → Sub-Component
+          │         Location: components/ folder inside the parent feature
           │
-          └── NO  → Is it a small UI block used only inside one feature/page?
+          └── NO  → Is it reused across multiple independent features?
                     │
-                    ├── YES → Sub-Component
-                    │         Location: components/ folder inside the parent feature/page
+                    ├── YES → Shared Component
+                    │         Location: src/app/shared/components/ or src/app/shared/ui/
+                    │         (ui/ for domain-agnostic wrappers, components/ for business-specific)
                     │
-                    └── NO  → Is it a generic, domain-agnostic UI element
-                              (wraps a UI library component like a button or modal)?
-                              │
-                              ├── YES → Shared UI Component
-                              │         Location: src/app/shared/ui/<component-name>/
-                              │
-                              └── NO  → Is it a business-specific component reused
-                                        across multiple independent features or pages?
-                                        │
-                                        ├── YES → Shared Component
-                                        │         Location: src/app/shared/components/<component-name>/
-                                        │
-                                        └── NO  → Reconsider scope — likely a Sub-Component
-                                                  or a Feature Component
+                    └── NO  → Reconsider scope — likely a Sub-Component
+                              or a Feature Component
 ```
