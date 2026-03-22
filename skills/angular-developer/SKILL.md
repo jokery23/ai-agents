@@ -1,6 +1,6 @@
 ---
 name: angular-developer
-description: A comprehensive skill for developing all Angular elements, including components and services, directives, pipes and features.
+description: Use this skill when the user asks to create, generate, modify, or scaffold Angular components, services, directives, pipes, guards, or features. Also applies when user asks about Angular best practices, Angular architecture, Angular project structure, or how to do something "the Angular way".
 ---
 
 # Skill: Angular Developer
@@ -23,7 +23,7 @@ Always prefer using the Angular CLI (`ng generate ...`) to scaffold new Angular 
 
 ## Modern Angular Paradigms
 
-- **Standalone First**: Make all components, directives, pipes, and services standalone (`standalone: true`).
+- **Standalone First**: Make all components, directives, pipes standalone (`standalone: true`).
 - **Reactive State Management**: Utilize Angular's **Signals** system (`signal`, `computed`, `effect`), along with `rxResource`, `input()`, `output()`, and `viewChild()`. Avoid `@Input()` and `@Output()` decorators.
 - **Change Detection**: Always use `ChangeDetectionStrategy.OnPush` to optimize rendering.
 - **Control Flow**: Use the modern `@if`, `@for`, and `@switch` block syntax instead of legacy structural directives (`*ngIf`, `*ngFor`).
@@ -43,60 +43,21 @@ src/app/api/
       └── index.ts               // export all services and models
 ```
 
-## Feature Architecture
-
-Features represent isolated business domains.
-
-- **Feature Services**: Services inside a feature must **not** make direct HTTP requests. Instead, they should inject API services (`src/app/api/`) and contain only business logic. They should be provided locally (avoid `providedIn: 'root'`)
-
-```typescript
-src/app/features/feature-name/
-  ├── components/                     // (optional) Local, small UI parts of the feature
-  ├── services/                       // (optional) Local auxiliary services
-  ├── pipes/                          // (optional) Local pipes
-  ├── directives/                     // (optional) Local directives
-  ├── feature-name.component.ts       // Minimum logic (delegate to service)
-  ├── feature-name.component.html     // Keep template minimal, use local components to break down complex UI
-  ├── feature-name.component.scss
-  ├── feature-name.component.spec.ts
-  ├── feature-name.service.ts         // Local logic service, must be provided locally
-  ├── feature-name.service.spec.ts
-  ├── feature-name.utils.ts           // (optional) Local utils
-  ├── feature-name.constants.ts       // (optional) Local constants
-  └── feature-name.models.ts          // (optional) Local models
-  └── index.ts                        // Export public API of the feature
-```
-
 ## Shared Structure
 
 All general, application-wide reusable elements reside in `src/app/shared/`.
 
+**General Rule**: Any Angular element — component, service, pipe, directive, utility, or model — should be placed in `src/app/shared/` when it is needed by **more than one independent feature**.
+art local (inside a feature) and promote to `shared/` only once the need for sharing is confirmed.
+
 ```typescript
 src/app/shared/
-  ├── components/
-  │   └── component-name/
-  │       ├── component-name.component.ts
-  │       ├── component-name.component.html
-  │       ├── component-name.component.scss
-  │       └── index.ts
-  ├── services/
-  │   └── service-name/
-  │       ├── service-name.service.ts
-  │       └── index.ts
-  └── utils/
+  ├── components/    // Business-specific components reused across features
+  ├── services/      // Application-wide services (not API, not feature-scoped)
+  ├── pipes/         // Reusable pipes used in multiple features
+  ├── directives/    // Reusable directives used in multiple features
+  └── utils/         // Shared utility functions, helpers, constants, models
 ```
-
-## Import Order
-
-Organize imports logically to maintain clean files:
-
-1. Angular core and common modules
-2. RxJS modules
-3. Angular-specific modules (e.g., `FormsModule`)
-4. Core application imports
-5. Shared module imports
-6. Environment-specific imports
-7. Relative path imports
 
 ## Performance Optimization
 
@@ -111,9 +72,9 @@ Organize imports logically to maintain clean files:
 
 - **Accessibility (a11y)**: Use semantic HTML and appropriate ARIA attributes.
 
-## Components
+## Components and Features(Feature Components)
 
-(`references/components.md`): Contains detailed information on how to implement, create, and modify Angular components.
+(`references/components.md`): Contains detailed information on how to implement, create, and modify Angular components and features(feature components).
 
 ## Services
 
