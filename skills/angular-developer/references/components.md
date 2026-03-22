@@ -73,18 +73,28 @@ Is it a self-contained, independent business domain (e.g., orders, auth)?
 │
 ├── YES → Feature Component
 │         Location: src/app/features/<feature-name>/
+│         Must NOT depend on other features.
+│         Only the main feature component is exported via index.ts.
 │
-└── NO  → Is it a small UI block used only inside one feature?
+└── NO  → Is it used only inside one feature or parent component?
           │
           ├── YES → Sub-Component
-          │         Location: components/ folder inside the parent feature
+          │         Location: components/ folder inside the parent
+          │         │
+          │         ├── Has its own logic/state? → Smart Sub-Component
+          │         │   (may inject local services, manage own state)
+          │         │
+          │         └── UI only, no direct service injection? → Dumb Sub-Component
+          │             (inputs/outputs only, purely presentational)
           │
-          └── NO  → Is it reused across multiple independent features?
+          └── NO  → Is it already used (or will be used) by more than one
+                    independent feature?
                     │
                     ├── YES → Shared Component
-                    │         Location: src/app/shared/components/ or src/app/shared/ui/
-                    │         (ui/ for domain-agnostic wrappers, components/ for business-specific)
+                    │         Location: src/app/shared/components/
+                    │         Rule: Start local inside a feature first.
+                    │         Promote to shared/ only once the need is confirmed.
                     │
-                    └── NO  → Reconsider scope — likely a Sub-Component
-                              or a Feature Component
+                    └── NO  → Keep it local for now.
+                              Reconsider scope when a second feature needs it.
 ```
