@@ -1,4 +1,3 @@
-```typescript
 import {
   createServiceFactory,
   SpectatorService,
@@ -25,4 +24,3 @@ describe("AuthService", () => {
     });
   });
 });
-```

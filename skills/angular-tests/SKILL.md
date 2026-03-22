@@ -47,7 +47,7 @@ This skill defines the standard approach for writing unit tests in this Angular 
 
 Use `createComponentFactory` to test components. It simplifies input binding, output testing, and DOM querying.
 
-- 📖 **Example**: [`./examples/testing-components.md`](./examples/testing-components.md)
+- 📖 **Example**: [`./examples/testing-components.ts`](./examples/testing-components.ts)
 - 🔗 **Docs**: [Spectator Component Testing](https://ngneat.github.io/spectator/docs/testing-components)
 
 _Pro-tip: Rely on `spectator.query('.class')` or `spectator.query(ChildComponent)` rather than native `document.querySelector` or verbose `fixture.debugElement.query()`._
@@ -56,14 +56,14 @@ _Pro-tip: Rely on `spectator.query('.class')` or `spectator.query(ChildComponent
 
 Use `createServiceFactory` for generic logical services. It streamlines dependency injection and mocking.
 
-- 📖 **Example**: [`./examples/testing-services.md`](./examples/testing-services.md)
+- 📖 **Example**: [`./examples/testing-services.ts`](./examples/testing-services.ts)
 - 🔗 **Docs**: [Spectator Service Testing](https://ngneat.github.io/spectator/docs/testing-services)
 
 ## 🌐 HTTP Testing
 
 Use `createHttpFactory` for any testing involving HTTP communication. It effortlessly asserts HTTP requests and mocks responses.
 
-- 📖 **Example**: [`./examples/testing-http.md`](./examples/testing-http.md)
+- 📖 **Example**: [`./examples/testing-http.ts`](./examples/testing-http.ts)
 - 🔗 **Docs**: [Spectator HTTP Testing](https://ngneat.github.io/spectator/docs/testing-with-http)
 
 ## 🎯 The "Given-When-Then" Pattern
