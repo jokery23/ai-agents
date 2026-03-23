@@ -26,6 +26,7 @@ Use this unified skill when developing or modifying any of the following:
 - **Dependency Injection**: Use the `inject()` function directly within component logic, directives, or services instead of constructor injection.
 
 ## Minimal Element Structure
+
 Minimal structure for any Angular element (component, service, directive, pipe):
 
 ```
@@ -34,6 +35,7 @@ element-name/
   ├── <element-name>.<type>.spec.ts  // Unit tests for the element
   └── index.ts                       // Re-export file for cleaner imports
 ```
+
 Example for a pipe:
 
 ```
@@ -89,12 +91,12 @@ src/app/shared/
 ## Components and Features(Feature Components)
 
 **Only load when need implement, create, or modify features(feature components), components.** See [components.md](references/components.md).
-Contains detailed information on how to implement, create, and modify Angular components and features(feature components)
+Contains detailed information on implementing, creating, and modifying Angular components and feature components.
 
 ## Services
 
 **Only load when need implement, create, or modify services.** See [services.md](references/services.md).
-Contains detailed information on how to implement, create, and modify Angular services.
+Contains detailed information on implementing, creating, and modifying Angular services.
 
 ## Pipes
 
@@ -102,6 +104,7 @@ Contains detailed information on how to implement, create, and modify Angular se
 **Location**: Place pipes in the `src/app/shared/pipes/` folder if they are reusable across multiple features, or within a specific feature folder if they are only relevant to that feature.
 
 Use an Angular pipe when:
+
 - Transforming data purely for display (format dates, currency, text casing, phone numbers, unit conversions, etc.)
 - The transformation is stateless — same input always produces same output(has no side effects)
 - The logic needs to be reused across multiple components
