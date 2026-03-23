@@ -6,7 +6,6 @@ This document covers the creation and maintenance of **ALL types of Angular serv
 
 ## Service Conventions
 
-- Always use Angular CLI (`ng generate service ...`) to scaffold new services — then update generated files according to the rules below
 - Use `inject()` function over constructor injection for cleaner code
 - For every service type **except** Component Logic Services, create a dedicated folder with an `index.ts` that is the **only** export point to the outside
 
@@ -34,7 +33,7 @@ Angular applications in this workspace use three categories of services:
 src/app/api/<resource-name>/
   ├── <resource-name>-api.service.ts
   ├── <resource-name>-api.service.spec.ts
-  ├── <resource-name>-api.model.ts
+  ├── <resource-name>-api.models.ts
   ├── <resource-name>-api.constants.ts  // (optional) API-specific constants
   └── index.ts                          // Required: only export point to the outside
 ```
@@ -42,7 +41,7 @@ src/app/api/<resource-name>/
 **Example**:
 
 ```typescript
-// src/app/api/users/users-api.model.ts
+// src/app/api/users/users-api.models.ts
 export interface UserDto {
   id: number;
   name: string;
@@ -58,7 +57,7 @@ export interface CreateUserRequest {
 import { inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { UserDto, CreateUserRequest } from "./users-api.model";
+import { UserDto, CreateUserRequest } from "./users-api.models";
 
 @Injectable({
   providedIn: "root",
@@ -82,7 +81,7 @@ export class UsersApiService {
 
 // src/app/api/users/index.ts
 export * from "./users-api.service";
-export * from "./users-api.model";
+export * from "./users-api.models";
 ```
 
 ---
@@ -125,7 +124,7 @@ export * from "./users-api.model";
 src/app/shared/services/<service-name>/
   ├── <service-name>.service.ts
   ├── <service-name>.service.spec.ts
-  ├── <service-name>.model.ts    // (optional) if specific models are needed
+  ├── <service-name>.models.ts    // (optional) if specific models are needed
   └── index.ts                   // Required: only export point to the outside
 ```
 
