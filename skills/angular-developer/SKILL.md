@@ -39,7 +39,7 @@ element-name/
 Example for a pipe:
 
 ```
-my-custom.pipe/
+my-custom/
   ├── my-custom.pipe.ts
   ├── my-custom.pipe.spec.ts
   └── index.ts
