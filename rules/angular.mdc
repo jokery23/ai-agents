@@ -1,6 +1,6 @@
 ---
 alwaysApply: false
-global: frontend-app/**/*.component.ts,frontend-app/**/*.service.ts,frontend-app/**/*.directive.ts,frontend-app/**/*.pipe.ts,frontend-app/**/*.module.ts,frontend-app/**/*.spec.ts,frontend-app/**/*.model.ts,frontend-app/**/*.interface.ts,frontend-app/**/*.html,frontend-app/**/*.scss,frontend-app/**/*.css
+global: frontend-app/**/*.component.ts,frontend-app/**/*.service.ts,frontend-app/**/*.directive.ts,frontend-app/**/*.pipe.ts,frontend-app/**/*.module.ts,frontend-app/**/*.spec.ts,frontend-app/**/*.models.ts,frontend-app/**/*.interface.ts,frontend-app/**/*.html,frontend-app/**/*.scss,frontend-app/**/*.css
 ---
 
 **Prompt for Expert Angular Developer**
@@ -14,7 +14,6 @@ global: frontend-app/**/*.component.ts,frontend-app/**/*.service.ts,frontend-app
 **Modern Angular Development Principles**
 
 - use onPush change detection strategy.
-- use ng generate to generate the code and then implement the code according to the rules.
 - use standalone components, services, directives, pipes, etc.
 - use signals, rxResource, input, output, viewChild function,
 - avoid @Input, @Output, etc.
@@ -43,7 +42,7 @@ All HTTP requests should be placed in the api folder.
   src/app/api/
   - orders-api/
   - orders-api.service.ts
-  - orders-api.model.ts
+  - orders-api.models.ts
   - index.ts // export all the services and models
   ```
 
@@ -59,7 +58,7 @@ src/app/features/feature-name/
 - feature-name.component.html
 - feature-name.component.scss
 - feature-name.service.ts // local(avoid provideIn: 'root') service with component logic should be placed here
-- feature-name.model.ts
+- feature-name.models.ts
 
 ```
 

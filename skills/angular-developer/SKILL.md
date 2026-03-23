@@ -17,10 +17,6 @@ Use this unified skill when developing or modifying any of the following:
 - Pipes
 - Features(Isolated business domains with its own components, services, etc.)
 
-## Generate Angular Elements
-
-Always prefer using the Angular CLI (`ng generate ...`) to scaffold new Angular elements (components, services, directives, pipes, etc.) rather than manually creating files. Then update the generated files according to the rules in this document.
-
 ## Modern Angular Paradigms
 
 - **Standalone First**: Make all components, directives, pipes standalone (`standalone: true`).
@@ -29,17 +25,37 @@ Always prefer using the Angular CLI (`ng generate ...`) to scaffold new Angular 
 - **Control Flow**: Use the modern `@if`, `@for`, and `@switch` block syntax instead of legacy structural directives (`*ngIf`, `*ngFor`).
 - **Dependency Injection**: Use the `inject()` function directly within component logic, directives, or services instead of constructor injection.
 
+## Minimal Element Structure
+
+Minimal structure for any Angular element (component, service, directive, pipe):
+
+```
+element-name/
+  ├── <element-name>.<type>.ts       // Main file with the Angular element definition
+  ├── <element-name>.<type>.spec.ts  // Unit tests for the element
+  └── index.ts                       // Re-export file for cleaner imports
+```
+
+Example for a pipe:
+
+```
+my-custom.pipe/
+  ├── my-custom.pipe.ts
+  ├── my-custom.pipe.spec.ts
+  └── index.ts
+```
+
 ## APIs (HTTP Requests)
 
 All HTTP requests must be placed in the `src/app/api/` folder.
 
 - API services should be globally provided: `providedIn: 'root'`.
 
-```typescript
+```
 src/app/api/
   └── orders-api/
       ├── orders-api.service.ts
-      ├── orders-api.model.ts
+      ├── orders-api.models.ts
       └── index.ts               // export all services and models
 ```
 
@@ -74,8 +90,26 @@ src/app/shared/
 
 ## Components and Features(Feature Components)
 
-(`references/components.md`): Contains detailed information on how to implement, create, and modify Angular components and features(feature components).
+**Only load when need implement, create, or modify features(feature components), components.** See [components.md](references/components.md).
+Contains detailed information on implementing, creating, and modifying Angular components and feature components.
 
 ## Services
 
-(`references/services.md`): Contains detailed information on how to implement, create, and modify Angular services.
+**Only load when need implement, create, or modify services.** See [services.md](references/services.md).
+Contains detailed information on implementing, creating, and modifying Angular services.
+
+## Pipes
+
+**Primary Rule**: Prefer an Angular Pipe over a component getter or method whenever a data transformation is required directly within a template for display purposes.
+**Location**: Place pipes in the `src/app/shared/pipes/` folder if they are reusable across multiple features, or within a specific feature folder if they are only relevant to that feature.
+
+Use an Angular pipe when:
+
+- Transforming data purely for display (format dates, currency, text casing, phone numbers, unit conversions, etc.)
+- The transformation is stateless — same input always produces same output(has no side effects)
+- The logic needs to be reused across multiple components
+- Dealing with async streams (use built-in `async` pipe)
+- Chaining multiple transformations in a template
+- The computation is heavy and benefits from pure pipe memoization (only re-runs when input reference changes)
+
+Do NOT use a pipe when the transformation depends on multiple component properties or the result is needed inside class logic
