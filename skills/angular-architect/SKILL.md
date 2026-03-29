@@ -210,6 +210,66 @@ Explicitly call out:
 - Recommended order of implementation (typically: models → API services → local services → guards/interceptors → presentational components → smart/feature components)
 - Existing elements identified as reusable or extendable (from Step 2)
 
+### Step 9: Assess Risks and Impacts
+
+For every planned element and structural decision, identify risks and assess their impact before finalizing the plan. Do not skip this step — surface risks explicitly so the user can make informed decisions.
+
+**Risk categories to evaluate:**
+
+#### Breaking Changes
+- Does this modify or extend an existing shared element (component, service, pipe, directive)? If so, identify all consumers that may be affected.
+- Does this change a public API (inputs, outputs, method signatures, service interfaces, model shapes)?
+- Does this alter routing configuration, lazy-loading boundaries, or guards in a way that affects existing navigation?
+- Does this change HTTP request/response contracts or API service method signatures?
+
+#### Performance
+- Does the structure introduce unnecessary re-renders? (e.g., smart component placed too deep in the tree, missing `OnPush` strategy consideration)
+- Are there components or services that subscribe to observables without clear unsubscription strategy?
+- Does the feature involve large data sets, pagination, or virtualization requirements that are unaddressed in the current plan?
+- Are lazy-loading boundaries placed appropriately to avoid bloating the initial bundle?
+- Does any planned pipe perform expensive computation that should be memoized?
+
+#### Security
+- Does this feature handle user-supplied data rendered in templates? Flag any potential XSS risk if `innerHTML` binding or `bypassSecurityTrust*` is considered.
+- Does this expose sensitive data (tokens, PII, credentials) in component state, localStorage, or URL params?
+- Are guards and interceptors covering all protected routes and API calls introduced by this feature?
+- Does the feature introduce new HTTP endpoints or query parameters that bypass existing auth interceptors?
+
+#### Scalability and Maintainability
+- Does the planned structure couple concerns that should remain separate (e.g., business logic in a component, direct API calls outside API services)?
+- Are there circular dependency risks between the planned elements?
+- Does this create feature-to-feature dependencies that violate the project's module boundaries?
+- Will the structure accommodate reasonable future extensions without requiring a full redesign?
+
+#### State and Data Consistency
+- Does the feature share mutable state with other features in a way that could cause race conditions or stale data?
+- Are there multiple sources of truth for the same data across the planned services?
+- If the feature uses optimistic updates or local state, what happens on API failure?
+
+#### Testing Risk
+- Are there elements that are difficult to unit test due to tight coupling (e.g., a component that directly performs HTTP calls)?
+- Does the plan account for testability of guards, resolvers, and interceptors in isolation?
+
+**Risk output format:**
+
+For each identified risk, provide:
+
+| Risk | Category | Likelihood | Impact | Mitigation |
+| ---- | -------- | ---------- | ------ | ---------- |
+| Brief description of the risk | Breaking / Performance / Security / Scalability / State / Testing | Low / Medium / High | Low / Medium / High | Recommended action or decision required |
+
+If no risks are identified in a category, explicitly state "No risks identified" for that category — do not omit categories silently.
+
+**Impact assessment:**
+
+After listing individual risks, summarize the overall impact of the proposed structure:
+
+- **Blast radius**: Which existing features, components, or services are affected by this change?
+- **Rollback complexity**: How difficult would it be to revert this change if a problem emerges after implementation?
+- **Recommended mitigations**: Any structural adjustments or implementation constraints that reduce identified risks.
+
+If any risk is rated **High likelihood + High impact**, escalate to the user before proceeding — do not finalize the plan without explicit acknowledgment.
+
 ## Output Checklist
 
 Before presenting the result, verify:
@@ -225,3 +285,7 @@ Before presenting the result, verify:
 - [ ] Structure follows angular-developer minimal element structure (each element has `.ts`, `.spec.ts`, `index.ts`)
 - [ ] All local imports use relative paths, all external imports use absolute paths
 - [ ] Guards, interceptors, and resolvers are placed in the correct scope (feature-local vs core/shared)
+- [ ] All six risk categories (Breaking Changes, Performance, Security, Scalability/Maintainability, State/Data Consistency, Testing) have been evaluated
+- [ ] A risk table with likelihood and impact ratings is included in the output
+- [ ] Blast radius and rollback complexity have been assessed
+- [ ] Any High likelihood + High impact risk has been escalated to the user before finalizing the plan
